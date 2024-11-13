@@ -1,0 +1,172 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1046{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs22\lang22 1. Dele\'e7\'e3o em Cascata no MySQL \par
+\b0 A dele\'e7\'e3o em cascata \'e9 uma t\'e9cnica usada para garantir que quando um registro principal (como um usu\'e1rio ou quest\'e3o) \'e9 exclu\'eddo, todos os registros relacionados (como respostas ou coment\'e1rios) sejam automaticamente deletados.\par
+Exemplo: No banco de dados, \'e9 poss\'edvel configurar as rela\'e7\'f5es entre tabelas com a cl\'e1usula ON DELETE CASCADE.\par
+sql\par
+Copiar c\'f3digo\par
+CREATE TABLE respostas (\par
+    id INT PRIMARY KEY,\par
+    pergunta_id INT,\par
+    resposta TEXT,\par
+    FOREIGN KEY (pergunta_id) REFERENCES perguntas(id) ON DELETE CASCADE\par
+);\par
+Nesse exemplo, ao deletar uma pergunta, todas as respostas associadas a ela ser\'e3o removidas automaticamente.\par
+\par
+2. Hash de Senha (0,1)\par
+O hash de senha \'e9 usado para proteger as senhas dos usu\'e1rios armazenadas no banco de dados. Em vez de guardar a senha em texto simples, a senha \'e9 transformada em um valor irrevers\'edvel usando uma fun\'e7\'e3o de hash.\par
+Exemplo (PHP):\par
+php\par
+Copiar c\'f3digo\par
+$password = 'senha123';\par
+$hash = password_hash($password, PASSWORD_BCRYPT);\par
+echo $hash;\par
+A fun\'e7\'e3o password_hash gera um hash da senha usando o algoritmo bcrypt. Ao autenticar o usu\'e1rio, o hash gerado pode ser comparado com o fornecido, sem necessidade de armazenar a senha original.\par
+\par
+3. Sessions (0,1)\par
+Sessions s\'e3o usadas para armazenar dados tempor\'e1rios do usu\'e1rio durante sua navega\'e7\'e3o no site, permitindo que as informa\'e7\'f5es sejam mantidas entre requisi\'e7\'f5es. Um exemplo t\'edpico \'e9 o controle de login do usu\'e1rio.\par
+Exemplo (PHP):\par
+php\par
+Copiar c\'f3digo\par
+session_start();\par
+$_SESSION['usuario'] = 'Jo\'e3o'; // Armazena o nome do usu\'e1rio\par
+Ao chamar session_start(), o PHP cria uma sess\'e3o e armazena vari\'e1veis que podem ser acessadas durante toda a navega\'e7\'e3o do usu\'e1rio.\par
+\par
+\b 4. Cookies \par
+\b0 Cookies s\'e3o pequenos arquivos armazenados no navegador do usu\'e1rio, usados para armazenar dados que precisam persistir entre sess\'f5es (ex: prefer\'eancias ou dados de login).\par
+Exemplo (PHP):\par
+php\par
+Copiar c\'f3digo\par
+setcookie("usuario", "Jo\'e3o", time() + 3600); // Expira em 1 hora\par
+Aqui, o cookie "usuario" \'e9 armazenado com o valor "Jo\'e3o" e expira em 1 hora.\par
+\par
+\b 5. Functions (PHP e JavaScript) \par
+\b0 Fun\'e7\'f5es s\'e3o blocos de c\'f3digo que podem ser reutilizados em diferentes partes da aplica\'e7\'e3o. Elas ajudam a evitar repeti\'e7\'e3o e a organizar o c\'f3digo.\par
+Exemplo (PHP):\par
+php\par
+Copiar c\'f3digo\par
+function saudacao($nome) \{\par
+    return "Ol\'e1, $nome!";\par
+\}\par
+echo saudacao("Jo\'e3o");\par
+Exemplo (JavaScript):\par
+javascript\par
+Copiar c\'f3digo\par
+function saudacao(nome) \{\par
+    return `Ol\'e1, $\{nome\}!`;\par
+\}\par
+console.log(saudacao("Jo\'e3o"));\par
+\b 6. Include e Require \par
+\b0 As instru\'e7\'f5es include e require s\'e3o usadas para incluir arquivos externos no c\'f3digo PHP. A principal diferen\'e7a \'e9 que require gera um erro fatal se o arquivo n\'e3o for encontrado, enquanto include gera um aviso.\par
+Exemplo (PHP):\par
+php\par
+Copiar c\'f3digo\par
+// Incluindo um arquivo de cabe\'e7alho\par
+include 'cabecalho.php';  \par
+require 'config.php';  // Gera erro fatal se o arquivo n\'e3o for encontrado\par
+\b 7. Conex\'e3o mysqli \par
+\b0 O mysqli \'e9 uma extens\'e3o do PHP para intera\'e7\'e3o com bancos de dados MySQL. Ele fornece fun\'e7\'f5es para realizar opera\'e7\'f5es como SELECT, INSERT, UPDATE, DELETE.\par
+Exemplo:\par
+php\par
+Copiar c\'f3digo\par
+$mysqli = new mysqli("localhost", "root", "", "bdq");\par
+if ($mysqli->connect_error) \{\par
+    die("Conex\'e3o falhou: " . $mysqli->connect_error);\par
+\}\par
+Aqui, estamos criando uma conex\'e3o com o banco de dados bdq. O m\'e9todo connect_error verifica se houve falha na conex\'e3o.\par
+\par
+\b 8. Try...catch \par
+\b0 A estrutura try...catch permite capturar erros ou exce\'e7\'f5es durante a execu\'e7\'e3o do c\'f3digo, evitando que o sistema quebre e oferecendo uma forma de tratar os erros de forma controlada.\par
+\par
+Exemplo:\par
+\par
+php\par
+Copiar c\'f3digo\par
+try \{\par
+    $numero = 10 / 0; // Gera erro de divis\'e3o por zero\par
+\} catch (Exception $e) \{\par
+    echo "Erro: " . $e->getMessage();\par
+\}\par
+\b 9. Estruturas if, elseif e else \par
+\b0 As estruturas if, elseif e else s\'e3o usadas para executar diferentes blocos de c\'f3digo com base em condi\'e7\'f5es.\par
+\par
+Exemplo:\par
+\par
+php\par
+Copiar c\'f3digo\par
+$idade = 20;\par
+if ($idade >= 18) \{\par
+    echo "Maior de idade";\par
+\} elseif ($idade >= 16) \{\par
+    echo "Permiss\'e3o de menor";\par
+\} else \{\par
+    echo "Menor de idade";\par
+\}\par
+\b 10. Refer\'eancias com -> \par
+\b0 O operador -> \'e9 usado em PHP para acessar propriedades ou m\'e9todos de objetos.\par
+Exemplo:\par
+php\par
+Copiar c\'f3digo\par
+class Carro \{\par
+    public $cor;\par
+    function __construct($cor) \{\par
+        $this->cor = $cor;\par
+    \}\par
+\}\par
+$meuCarro = new Carro('azul');\par
+echo $meuCarro->cor; // Acessando a propriedade 'cor'\par
+\b 11. Estruturas while \par
+\b0 O while \'e9 uma estrutura de repeti\'e7\'e3o que executa um bloco de c\'f3digo enquanto uma condi\'e7\'e3o for verdadeira.\par
+Exemplo:\par
+php\par
+Copiar c\'f3digo\par
+$i = 0;\par
+while ($i < 5) \{\par
+    echo $i . " ";\par
+    $i++;\par
+\}\par
+\b 12. M\'e9todos POST \par
+\b0 O m\'e9todo POST \'e9 utilizado para enviar dados ao servidor, geralmente em formul\'e1rios, para criar ou atualizar registros.\par
+Exemplo (HTML + PHP):\par
+html\par
+Copiar c\'f3digo\par
+<form method="POST" action="processar.php">\par
+    <input type="text" name="nome">\par
+    <input type="submit">\par
+</form>\par
+php\par
+Copiar c\'f3digo\par
+// processar.php\par
+$nome = $_POST['nome'];\par
+echo "Nome enviado: " . $nome;\par
+\b 13. CRUD Completo \b0\par
+O CRUD (Create, Read, Update, Delete) \'e9 um conjunto de opera\'e7\'f5es b\'e1sicas para manipula\'e7\'e3o de dados em um banco de dados.\par
+Exemplo (PHP e MySQL):\par
+Create: INSERT INTO\par
+Read: SELECT * FROM\par
+Update: UPDATE SET\par
+Delete: DELETE FROM\par
+php\par
+Copiar c\'f3digo\par
+// Criar\par
+$mysqli->query("INSERT INTO usuarios (nome) VALUES ('Jo\'e3o')");\par
+// Ler\par
+$result = $mysqli->query("SELECT * FROM usuarios");\par
+// Atualizar\par
+$mysqli->query("UPDATE usuarios SET nome='Maria' WHERE id=1");\par
+// Deletar\par
+$mysqli->query("DELETE FROM usuarios WHERE id=1");\par
+\b 14. Finalidade da Aplica\'e7\'e3o \par
+\b0 A finalidade da aplica\'e7\'e3o \'e9 o objetivo principal que o sistema busca atingir. No caso da aplica\'e7\'e3o PHP_BDQ, o objetivo \'e9 permitir a gest\'e3o de quest\'f5es, usu\'e1rios e respostas, provavelmente para um sistema de banco de quest\'f5es de uma plataforma educacional.\par
+\par
+\b 15. Autentica\'e7\'e3o em 2 Etapas \par
+\b0 A autentica\'e7\'e3o em 2 etapas \'e9 uma medida de seguran\'e7a adicional que exige dois m\'e9todos de verifica\'e7\'e3o antes que o usu\'e1rio consiga acessar a aplica\'e7\'e3o (ex: senha e um c\'f3digo gerado via SMS ou aplicativo).\par
+Exemplo:\par
+O usu\'e1rio insere sua senha.\par
+Um c\'f3digo \'e9 enviado para o celular ou gerado por um aplicativo (como Google Authenticator), que o usu\'e1rio deve inserir para concluir o login.\par
+\par
+\b Identifica\'e7\'e3o das Rotas \par
+\b0 Ap\'f3s executar a aplica\'e7\'e3o e identificar as rotas principais, como registro de usu\'e1rio, login de usu\'e1rio, redefini\'e7\'e3o de senha e acesso ao banco de quest\'f5es, \'e9 poss\'edvel mapear as URLs que correspondem a essas funcionalidades. A documenta\'e7\'e3o das rotas pode ser feita, incluindo o m\'e9todo HTTP (GET, POST) e a descri\'e7\'e3o da funcionalidade.\par
+\par
+}
+ 
